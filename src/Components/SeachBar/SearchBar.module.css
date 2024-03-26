@@ -1,0 +1,35 @@
+.container {
+  width: 100vw;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.search_input {
+  width: 95%;
+  padding: 0.6rem 2.3rem;
+  border-radius: 48px;
+  border: 2px solid #c8c8c8;
+  outline: none;
+  font-size: 1.1rem;
+}
+.search_icon {
+  position: absolute;
+  left: 3.5rem;
+}
+
+/* Responcive Code  */
+@media only screen and (max-width: 520px) {
+  .container {
+    padding: 0;
+  }
+  .search_input {
+    width: 97%;
+    border-radius: 5px;
+  }
+  .search_icon {
+    width: 1.5rem;
+    left: 0.5rem;
+  }
+}

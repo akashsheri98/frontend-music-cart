@@ -1,0 +1,20 @@
+.productList_container {
+  width: 95vw;
+  display: flex;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0.3rem 1rem;
+  padding: 0.5rem;
+}
+.product_image_div {
+  width: 28%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product_desc {
+  width: 72%;
+  font-weight: bolder;
+  padding: 20px 50px;
+  line-height: 35px;
+}

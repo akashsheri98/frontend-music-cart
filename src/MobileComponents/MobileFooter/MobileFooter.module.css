@@ -1,0 +1,25 @@
+.mobile_footer_container {
+  width: 100vw;
+  border: 2px solid #c8c8c8;
+  height: 8vh;
+  background: #fff;
+  color: #2e0052;
+  position: fixed;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+.btn {
+  font-weight: bolder;
+  font-size: 0.8rem;
+  padding: 0 0.4rem;
+  cursor: pointer;
+}
+.active {
+  border-top: 2px solid #2e0052;
+}
+.btn img {
+  width: 1.7rem;
+}
