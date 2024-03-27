@@ -18,7 +18,7 @@ export const loginUser = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_HOST}/auth/login`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/login`,
         credentials
       );
 
@@ -35,7 +35,7 @@ export const signupUser = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_HOST}/auth/signup`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/register`,
         credentials
       );
 

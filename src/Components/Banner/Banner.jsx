@@ -48,7 +48,7 @@ const Banner = ({ pageContent }) => {
               </Link>
             </>
           )}
-        </div>
+          </div>
       </div>
     </div>
   );

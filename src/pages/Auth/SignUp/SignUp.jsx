@@ -8,9 +8,9 @@ import MobileAuthHeader from "../../../MobileComponents/MobileHeader/MobileAuthH
 import logo from "/images/logo.png";
 
 function Signup() {
-  const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
   const { user, loading, error } = useSelector((state) => state.auth);
@@ -20,11 +20,11 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !email || !mobile || !password) {
+    if (!username || !email || !phone || !password) {
       setIsError(true);
     } else {
       setIsError(false);
-      dispatch(signupUser({ name, email, mobile, password }));
+      dispatch(signupUser({ username, email,phone, password }));
     }
   };
 
@@ -57,16 +57,16 @@ function Signup() {
           <label>Your Name</label>
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
         <div className={styles.input_field}>
           <label>Mobile number</label>
           <input
             type="number"
-            value={mobile}
-            onChange={(e) => setMobile(Number(e.target.value))}
+            value={phone}
+            onChange={(e) => setPhone(Number(e.target.value))}
           />
         </div>
         <div className={styles.input_field}>
