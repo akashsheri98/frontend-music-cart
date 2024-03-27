@@ -14,7 +14,7 @@ export const fetchSingleProduct = createAsyncThunk(
   "singleProduct/fetchSingleProduct",
   async (productId) => {
     const response = await axios.get(
-      `${import.meta.env.VITE_SERVER_HOST}/products/${productId}`
+      `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/${productId}`
     );
     return response.data;
   }

@@ -15,7 +15,7 @@ export const addToCart = createAsyncThunk(
   async ({ userId, product, quantity }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_HOST}/cart/addtocart`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/cart/addtocart`,
         { userId, product, quantity }
       );
 
@@ -31,7 +31,7 @@ export const fetchCartProducts = createAsyncThunk(
   async (userId, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_HOST}/cart/${userId}`
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/cart/${userId}`
       );
 
       return response.data;
