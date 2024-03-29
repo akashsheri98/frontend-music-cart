@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    dispatch(addToCart({ userId, product, quantity: 1 }));
+    dispatch(addToCart({ userId, product  ,quantity: 1 }));
   };
   return (
     <div onClick={handleProduct} className={styles.productCard}>

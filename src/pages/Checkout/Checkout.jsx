@@ -62,6 +62,27 @@ function Checkout() {
       });
     }
   };
+  const [paymentMethod, setPaymentMethod] = useState("COD");
+  const [additionalInfo, setAdditionalInfo] = useState("");
+
+  const handlePaymentMethodChange = (event) => {
+    setPaymentMethod(event.target.value);
+  };
+  const handleAdditionalInfoChange = (event) => {
+    setAdditionalInfo(event.target.value);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Here you can handle form submission, e.g., sending data to backend
+    console.log("Payment Method:", paymentMethod);
+
+    console.log("Additional Info:", additionalInfo);
+  };
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+  };
 
   return (
     <>
@@ -89,37 +110,73 @@ function Checkout() {
                 <h2>1. Delivery address</h2>
                 <div className={styles.address}>
                   <p>{user.name}</p>
-                  <p>104</p>
-                  <p>kk hh nagar lucknow</p>
-                  <p>Uttar pradesh 226025</p>
+                  <textarea
+                    id="additionalInfo"
+                    value={additionalInfo}
+                    onChange={handleAdditionalInfoChange}
+                    placeholder="Any additional information (optional)"
+                  />
                 </div>
               </div>
               <div className={styles.payment_details}>
                 <h2>2. Payment method</h2>
                 <div>
-                  <p>Pay on delivery ( Cash/Card)</p>
+                  <select
+                    id="paymentMethod"
+                    value={paymentMethod}
+                    onChange={handlePaymentMethodChange}
+                  >
+                    <option value="COD">Cash on Delivery</option>
+                    <option value="Online">Online Payment</option>
+                  </select>
                 </div>
+                <button onClick={handleSubmit}>Place order</button>
               </div>
               <div className={styles.item_review}>
                 <h2>3. Review items and delivery</h2>
                 <div className={styles.items_container}>
-                  {cartItems?.map((product) => (
-                    <div key={product?._id} className={styles.cartItems}>
-                      <div className={styles.image_container}>
-                        <img
-                          src={product?.images ? product?.images[0] : ""}
-                          alt={product?.title}
-                        />
+                  
+                  {cartItems
+                    ?.reduce((uniqueProducts, product) => {
+                      const isProductExist = uniqueProducts.some(
+                        (item) => item.product[0]._id === product.product[0]._id
+                      );
+                      if (!isProductExist) {
+                        uniqueProducts.push(product);
+                      }
+                      return uniqueProducts;
+                    }, [])
+                    .map((product) => (
+                      <div
+                        key={product?._id}
+                        className={styles.cartItems}
+                        onClick={() => handleProductClick(product)}
+                      >
+                        <div className={styles.image_container}>
+                          <img
+                            src={product?.product[0]?.imageUrl}
+                            alt={product?.product[0]?.productName}
+                          />
+                        </div>
+                        {/* {<div className={styles.product_details_container}>
+                          <h3>{product?.product[0]?.productName}</h3>
+                          <span>Color : {product?.product[0]?.color}</span>
+                          <span>In Stock</span>
+                          <p>Estimated delivery : </p>
+                          <p>Monday — FREE Standard Delivery</p>
+                        </div>} */}
                       </div>
-                      <div className={styles.product_details_container}>
-                        <h3>{product?.title}</h3>
-                        <span>Color : {product?.color}</span>
-                        <span>In Stock</span>
-                        <p>Estimated delivery : </p>
-                        <p>Monday — FREE Standard Delivery</p>
-                      </div>
+                    ))}
+                  {selectedProduct && (
+                    <div className={styles.product_description}>
+                      <h2>{selectedProduct?.product[0]?.productName}</h2>
+                      <p>
+                        Description: {selectedProduct?.product[0]?.shortDescription}
+                      </p>
+                      <p>Price: {selectedProduct?.product[0]?.price}</p>
+                      {/* Add more details as needed */}
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
               {isMobile && <hr />}

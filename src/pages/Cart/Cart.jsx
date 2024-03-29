@@ -18,10 +18,11 @@ import bagIcon from "/images/icons8-bag-64.png";
 import deleteIcon from "/images/icons8-delete-30.png";
 
 const Cart = () => {
-  const { cartItems, totalAmount, totalCount } = useSelector(
-    (state) => state.cart
-  );
 
+  const { cartItems, totalAmount, totalCount } = useSelector(
+    (state) => state.cart 
+  );
+    
   const { isMobile } = useSelector((state) => state.ui);
   const { user } = useSelector((state) => state.auth);
   const userId = user?.userid;
@@ -29,12 +30,14 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handleQuantityChange = ({ e, productId }) => {
-    dispatch(getCartTotal());
     let quantity = parseInt(e.target.value);
+    console.log("quantity", quantity);
+     dispatch(getCartTotal());
     dispatch(updateCartQuantity({ quantity, productId, userId }));
+  
   };
 
-  const handleRemoveFromCart = (productId) => {
+  /*const handleRemoveFromCart = (productId) => {
     Swal.fire({
       title: "Are you sure you want to remove this item?",
       icon: "warning",
@@ -48,7 +51,7 @@ const Cart = () => {
         dispatch(removeFromCart({ productId, userId }));
       }
     });
-  };
+  };*/
 
   useEffect(() => {
     dispatch(getCartTotal());
@@ -57,6 +60,8 @@ const Cart = () => {
   useEffect(() => {
     dispatch(fetchCartProducts(userId));
   }, [dispatch]);
+
+
 
   return (
     <>
@@ -88,22 +93,24 @@ const Cart = () => {
                 <div key={i} className={styles.cart_item_container}>
                   <div className={styles.image_container}>
                     <img
-                      src={item.images ? item?.images[0] : ""}
-                      alt={item?.title}
+                      src={item.product?.imageUrl ? item.product?.imageUrl : ""}
+                      alt={item?.product[0]?.productName}
                     />
                   </div>
                   <div className={styles.product_details_container}>
                     <div className={styles.title}>
-                      <h3>{item?.title}</h3>
+                      <h3>{item?.product[0]?.productName}</h3>
+                      
+                   
                       {isMobile && <h3> ₹ {item?.price}</h3>}
-                      <p>Color : Black</p>
+                      <p>Color : {item?.product[0]?.color}</p>
                       <p>In Stock</p>
                     </div>
 
                     {!isMobile && (
                       <div className={styles.price}>
                         <h3>Price</h3>
-                        <p> ₹ {item?.price}</p>
+                        <p> ₹ {item?.product[0]?.price}</p>
                       </div>
                     )}
                     <div>
@@ -114,28 +121,31 @@ const Cart = () => {
                         onChange={(e) =>
                           handleQuantityChange({
                             e,
-                            productId: item._id,
+                            productId: item.product[0]?._id,
                           })
                         }
                       >
+                       
                         {[...Array(8)].map((_, index) => (
                           <option key={index} value={index + 1}>
                             {index + 1}
                           </option>
                         ))}
+                        
                       </select>
+                      
                     </div>
                     <div className={styles.product_total_price}>
                       <h3>Total :</h3>
-                      <p> ₹ {item?.price * item?.quantity}</p>
+                      <p> ₹ {item?.product[0]?.price * item?.quantity}</p>
                     </div>
                   </div>
-                  <img
+                  {/*<img
                     className={styles.delete_icon}
                     onClick={() => handleRemoveFromCart(item?._id)}
                     src={deleteIcon}
                     alt="deleteIcon"
-                  />
+                        />*/}
                 </div>
               ))}
               {isMobile && <hr />}

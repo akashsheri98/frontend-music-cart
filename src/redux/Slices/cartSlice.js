@@ -3,22 +3,26 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const initialState = {
-  cartItems: [],
+  cartItems: [], 
   status: "idle",
   error: null,
   totalAmount: 0,
   totalCount: 0,
+
 };
+
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
-  async ({ userId, product, quantity }, { rejectWithValue }) => {
+  async ({ userId, product ,quantity }, { rejectWithValue }) => {
+    
     try {
       const response = await axios.post(
+        
         `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/cart/addtocart`,
-        { userId, product, quantity }
+        { userId, product ,quantity }
       );
-
+       
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -44,10 +48,12 @@ export const updateCartQuantity = createAsyncThunk(
   "cart/updateQuantity",
   async ({ userId, quantity, productId }, { rejectWithValue }) => {
     try {
+      
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_HOST}/cart/update`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/cart/update`,
         { userId, quantity, productId }
       );
+      
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -88,17 +94,34 @@ export const clearCart = createAsyncThunk(
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-
+  
   reducers: {
     getCartTotal: (state) => {
+      
       state.totalAmount = 0;
       state.totalCount = 0;
-      state.cartItems.forEach((item) => {
-        state.totalAmount += parseInt(item.price) * parseInt(item.quantity);
-        state.totalCount += parseInt(item.quantity);
-      });
+      
+      if (Array.isArray(state.cartItems)) {
+        /*state.cartItems.forEach((item) => {
+          state.totalAmount +=
+            parseInt(item.product[0].price) * parseInt(item.quantity);
+          state.totalCount += parseInt(item.quantity);
+        });*/
+        
+        state.totalAmount = state.cartItems.reduce((total, item) => {
+          return total + (parseInt(item.product[0].price) * parseInt(item.quantity));
+        }, 0);
+      
+        state.totalCount = state.cartItems.reduce((totalCount, item) => {
+          return totalCount + parseInt(item.quantity);
+        }, 0);
+      } else {
+        console.error("state.cartItems is not an array");
+      }
     },
   },
+
+  
   extraReducers: (builder) => {
     builder
       .addCase(addToCart.pending, (state) => {
@@ -130,7 +153,7 @@ const cartSlice = createSlice({
       })
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.cartItems = action.payload;
+        state.cartItems =action.payload;
 
         toast.success(`Quantity updated for this product`);
       })
