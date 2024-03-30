@@ -115,7 +115,7 @@ function ProductDetails() {
                 {!isMobile && (
                   <div className={styles.product_img}>
                     <img
-                      src={product.images[displayImageIndex]}
+                      src={product.imageUrl}
                       alt={product.title}
                     />
                   </div>

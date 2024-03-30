@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const initialState = {
-  cartItems: [], 
-  status: "idle",
-  error: null,
+  cartItems: [],
   totalAmount: 0,
   totalCount: 0,
-
+  status: "idle",
+  error: null,
 };
 
 
@@ -90,18 +90,21 @@ export const clearCart = createAsyncThunk(
     }
   }
 );
+//export const reloadPage = createAsyncThunk("cart/reloadPage");
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  
+  // Initial State
+
+
   reducers: {
-    getCartTotal: (state) => {
-      
+    getCartTotal: (state ) => {
+    
       state.totalAmount = 0;
-      state.totalCount = 0;
+      state.totalCount = 0; 
       
-      if (Array.isArray(state.cartItems)) {
+       if (Array.isArray(state.cartItems)) {
         /*state.cartItems.forEach((item) => {
           state.totalAmount +=
             parseInt(item.product[0].price) * parseInt(item.quantity);
@@ -115,8 +118,9 @@ const cartSlice = createSlice({
         state.totalCount = state.cartItems.reduce((totalCount, item) => {
           return totalCount + parseInt(item.quantity);
         }, 0);
-      } else {
-        console.error("state.cartItems is not an array");
+       } else {
+         console.error("state.cartItems is not an array");
+
       }
     },
   },
@@ -151,11 +155,18 @@ const cartSlice = createSlice({
       .addCase(updateCartQuantity.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(updateCartQuantity.fulfilled, (state, action) => {
+      .addCase(updateCartQuantity.fulfilled, (state  , action) => {
         state.status = "succeeded";
         state.cartItems =action.payload;
-
+        state.totalAmount = 0;
+        state.totalCount = 0;
+        state.cartItems.forEach((item) => {
+          state.totalAmount +=
+            parseInt(item.product[0].price) * parseInt(item.quantity);
+          state.totalCount += parseInt(item.quantity);
+        });
         toast.success(`Quantity updated for this product`);
+        
       })
       .addCase(updateCartQuantity.rejected, (state, action) => {
         state.status = "failed";
@@ -187,6 +198,19 @@ const cartSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       });
+      // .addCase(reloadPage.pending,(state) => {
+      //   state.status = "loading";
+        
+      // })
+      // .addCase(reloadPage.fulfilled, (state) => {
+      //   state.status = "succeeded";
+      //   state.cartItems = action.payload;
+      //   state.error = null;
+      // })
+      // .addCase(reloadPage.rejected, (state, action) => {
+      //   state.status = "failed";
+      //   state.error = action.error.message;
+      // });
   },
 });
 

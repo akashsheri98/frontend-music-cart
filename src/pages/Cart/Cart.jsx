@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import styles from "./Cart.module.css";
 import Swal from "sweetalert2";
 
@@ -18,7 +18,7 @@ import bagIcon from "/images/icons8-bag-64.png";
 import deleteIcon from "/images/icons8-delete-30.png";
 
 const Cart = () => {
-
+  
   const { cartItems, totalAmount, totalCount } = useSelector(
     (state) => state.cart 
   );
@@ -34,7 +34,8 @@ const Cart = () => {
     console.log("quantity", quantity);
      dispatch(getCartTotal());
     dispatch(updateCartQuantity({ quantity, productId, userId }));
-  
+  window.location.reload();
+  history.go(0);
   };
 
   /*const handleRemoveFromCart = (productId) => {
@@ -52,17 +53,20 @@ const Cart = () => {
       }
     });
   };*/
+ 
 
   useEffect(() => {
     dispatch(getCartTotal());
+    
   }, [cartItems]);
 
   useEffect(() => {
     dispatch(fetchCartProducts(userId));
+    
   }, [dispatch]);
 
-
-
+  
+  
   return (
     <>
       <div>
@@ -122,8 +126,10 @@ const Cart = () => {
                           handleQuantityChange({
                             e,
                             productId: item.product[0]?._id,
+                            
                           })
                         }
+                        
                       >
                        
                         {[...Array(8)].map((_, index) => (

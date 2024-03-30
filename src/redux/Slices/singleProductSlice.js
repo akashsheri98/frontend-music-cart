@@ -12,10 +12,13 @@ const initialState = {
 // Async thunk to fetch a single product
 export const fetchSingleProduct = createAsyncThunk(
   "singleProduct/fetchSingleProduct",
-  async (productId) => {
+  async (productId ,{ rejectWithValue }) => {
+    debugger;
     const response = await axios.get(
-      `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/${productId}`
+      
+      `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/product/${productId}`
     );
+    debugger;
     return response.data;
   }
 );

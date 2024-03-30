@@ -29,7 +29,7 @@ const ProductCard = ({ product }) => {
       <div className={styles.product_image_div}>
         <img
           loading="lazy"
-          src={product?.imageUrl}
+          src="./src/Components/ProductCard/image5.png"
           alt={product?.productName}
           className={styles.productImage}
         />

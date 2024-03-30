@@ -18,6 +18,7 @@ function Checkout() {
   );
   const { isMobile } = useSelector((state) => state.ui);
   const { user } = useSelector((state) => state.auth);
+  
   const userId = user?.userid;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function Checkout() {
   useEffect(() => {
     dispatch(fetchCartProducts(userId));
   }, [dispatch]);
-
+  console.log("cartItems",cartItems);
   const makePayementHandler = async () => {
     const stripe = await loadStripe(
       `${import.meta.env.VITE_SERVER_STRIPE_PUBLICABLE_KEY}`
@@ -63,21 +64,18 @@ function Checkout() {
     }
   };
   const [paymentMethod, setPaymentMethod] = useState("COD");
-  const [additionalInfo, setAdditionalInfo] = useState("");
+  const [additionalInfo, setAdditionalInfo] = useState("110 main street \n Delhi India \n 110011");
 
+  
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
+    console.log("paymentMethod", paymentMethod);
   };
   const handleAdditionalInfoChange = (event) => {
     setAdditionalInfo(event.target.value);
+    console.log("additionalInfo", additionalInfo);
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you can handle form submission, e.g., sending data to backend
-    console.log("Payment Method:", paymentMethod);
-
-    console.log("Additional Info:", additionalInfo);
-  };
+  
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleProductClick = (product) => {
@@ -115,6 +113,7 @@ function Checkout() {
                     value={additionalInfo}
                     onChange={handleAdditionalInfoChange}
                     placeholder="Any additional information (optional)"
+                    className={styles.textarea}
                   />
                 </div>
               </div>
@@ -122,6 +121,7 @@ function Checkout() {
                 <h2>2. Payment method</h2>
                 <div>
                   <select
+                    className={styles.select}
                     id="paymentMethod"
                     value={paymentMethod}
                     onChange={handlePaymentMethodChange}
@@ -130,7 +130,7 @@ function Checkout() {
                     <option value="Online">Online Payment</option>
                   </select>
                 </div>
-                <button onClick={handleSubmit}>Place order</button>
+               
               </div>
               <div className={styles.item_review}>
                 <h2>3. Review items and delivery</h2>
@@ -156,15 +156,10 @@ function Checkout() {
                           <img
                             src={product?.product[0]?.imageUrl}
                             alt={product?.product[0]?.productName}
+                            value={product?.product[0]?._id}
                           />
                         </div>
-                        {/* {<div className={styles.product_details_container}>
-                          <h3>{product?.product[0]?.productName}</h3>
-                          <span>Color : {product?.product[0]?.color}</span>
-                          <span>In Stock</span>
-                          <p>Estimated delivery : </p>
-                          <p>Monday — FREE Standard Delivery</p>
-                        </div>} */}
+                        
                       </div>
                     ))}
                   {selectedProduct && (
