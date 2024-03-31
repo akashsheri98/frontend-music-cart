@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/Slices/authSlice";
 import Swal from "sweetalert2";
 
-import musicartLogo from "/images/musicartLogo.png";
+//import musicartLogo from "/images/musicartLogo.png";
 
 const Header = () => {
   const user = useSelector((state) => state.auth.user);
@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <header className={styles.container}>
       <div className={styles.logo}>
-        <img src={musicartLogo} alt="musicartLogo" />
+      <a style={{textDecoration:"none",color:"white"}} href="tel:123-456-7890">+91 123-456-7890</a>
       </div>
       <div className={styles.btns}>
         <p>Get 50% off on selected items</p>
@@ -24,7 +24,7 @@ const Header = () => {
       {user ? (
         <div className={styles.btns}>
           
-          <h2>Welcome {user.name}</h2>
+          <h2>Hi, {user.name}</h2>
 
           <p
             className={styles.btn}

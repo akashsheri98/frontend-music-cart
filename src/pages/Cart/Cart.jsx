@@ -19,10 +19,11 @@ import deleteIcon from "/images/icons8-delete-30.png";
 
 const Cart = () => {
   
+ 
   const { cartItems, totalAmount, totalCount } = useSelector(
     (state) => state.cart 
   );
-    
+ 
   const { isMobile } = useSelector((state) => state.ui);
   const { user } = useSelector((state) => state.auth);
   const userId = user?.userid;
@@ -34,8 +35,8 @@ const Cart = () => {
     console.log("quantity", quantity);
      dispatch(getCartTotal());
     dispatch(updateCartQuantity({ quantity, productId, userId }));
-  window.location.reload();
-  history.go(0);
+    window.location.reload();
+  
   };
 
   /*const handleRemoveFromCart = (productId) => {
@@ -61,6 +62,8 @@ const Cart = () => {
   }, [cartItems]);
 
   useEffect(() => {
+    
+  
     dispatch(fetchCartProducts(userId));
     
   }, [dispatch]);
@@ -97,7 +100,7 @@ const Cart = () => {
                 <div key={i} className={styles.cart_item_container}>
                   <div className={styles.image_container}>
                     <img
-                      src={item.product?.imageUrl ? item.product?.imageUrl : ""}
+                      src={item.product[0]?.imageUrl ? item.product[0]?.imageUrl : ""}
                       alt={item?.product[0]?.productName}
                     />
                   </div>

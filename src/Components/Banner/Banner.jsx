@@ -39,16 +39,45 @@ const Banner = ({ pageContent }) => {
         <div>
           {user && checkIsCartPageOrIsCheckoutPage() && (
             <>
-              <p className={styles.cart_count}>{cartItems.length}</p>
-              <Link to="/cart">
-                <button className={styles.viewCart_btn}>
-                  <img src={cartIcon} alt="cartIcon" />
-                  View Cart
-                </button>
-              </Link>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  gap: "10px",
+                }}
+              >
+                {/* <p className={styles.cart_count}>{cartItems.length}</p> */}
+                <Link to="/invoice-card">
+                  <button
+                    style={{
+                      textDecoration: "none",
+                      color: "blaclk",
+                      fontWeight: "bold",
+                      border: "none",
+                      fontSize: "18px",
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                      background: "none",
+                      paddingTop: "10px",
+                    }}
+                  >
+                    invoice
+                  </button>
+                </Link>
+                <Link to="/cart">
+                  <button
+                    className={styles.viewCart_btn}
+                    style={{ display: "flex", justifyContent: "space-around" }}
+                  >
+                    <img src={cartIcon} alt="cartIcon" />
+                    View Cart {cartItems.length}
+                  </button>
+                </Link>
+              </div>
             </>
           )}
-          </div>
+        </div>
       </div>
     </div>
   );

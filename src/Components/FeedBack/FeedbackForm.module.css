@@ -1,0 +1,21 @@
+/* FeedbackForm.module.css */
+.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    margin: auto;
+}
+
+.submitButton {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.submitButton:hover {
+    background-color: #0056b3;
+}

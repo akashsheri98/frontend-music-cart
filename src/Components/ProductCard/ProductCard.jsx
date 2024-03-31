@@ -18,18 +18,24 @@ const ProductCard = ({ product }) => {
 
   const handleProduct = () => {
     navigate(`/${product._id}`);
+    console.log(product._id);
   };
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
     dispatch(addToCart({ userId, product  ,quantity: 1 }));
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   };
   return (
     <div onClick={handleProduct} className={styles.productCard}>
       <div className={styles.product_image_div}>
+      {console.log(product?.imageUrl)}
         <img
           loading="lazy"
-          src="./src/Components/ProductCard/image5.png"
+         
+          src={product.imageUrl}
           alt={product?.productName}
           className={styles.productImage}
         />

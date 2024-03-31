@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addToCart } from "../../redux/Slices/cartSlice";
+
 import {
   fetchSingleProduct,
   resetSingleProduct,
@@ -32,7 +33,7 @@ function ProductDetails() {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+    
   const slideSettings = {
     arrows: false,
     speed: 300,
@@ -57,10 +58,11 @@ function ProductDetails() {
         <h3>NetWork Error ! Please Refresh the page</h3>
       </div>
     );
-
+    
   const handleAddToCart = async () => {
     if (user) {
-      await dispatch(addToCart({ userId, product }));
+      
+       dispatch(addToCart({ userId, product , quantity: 1 }));
       navigate("/cart");
     } else {
       Swal.fire({
@@ -71,9 +73,10 @@ function ProductDetails() {
       navigate("/login");
     }
   };
-
+ 
   return (
     <>
+      
       {isMobile ? <SearchBarHeader /> : <Header />}
       {!isMobile && <Banner pageContent={product?.title} />}
       <div div className={styles.container}>
@@ -89,12 +92,14 @@ function ProductDetails() {
             Back to products
           </button>
         )}
+        
         {product ? (
           <>
             <div className={styles.product_container}>
               {!isMobile && (
                 <p className={styles.about_product}>
-                  {product.title} is {product.description}
+               
+                  {product.product.productName}  {product.product.description}
                 </p>
               )}
               <div className={styles.product_details}>
@@ -107,7 +112,7 @@ function ProductDetails() {
                   <Slider {...slideSettings}>
                     {product.images.map((image, index) => (
                       <div className={styles.product_img} key={index}>
-                        <img src={image} alt={product.title} />
+                        <img src={product.product.imageUrl} alt={product.product.productName} />
                       </div>
                     ))}
                   </Slider>
@@ -115,47 +120,45 @@ function ProductDetails() {
                 {!isMobile && (
                   <div className={styles.product_img}>
                     <img
-                      src={product.imageUrl}
-                      alt={product.title}
+                      src={product.product.imageUrl}
+                      alt={product.product.productName}
                     />
                   </div>
                 )}
                 <div className={styles.product_desc}>
-                  <h2 className={styles.productTitle}>{product.title}</h2>
+                  <h2 className={styles.productTitle}>{product.product.productName}</h2>
                   <div className={styles.reviews}>
                     <span>⭐</span>
                     <span>⭐</span>
                     <span>⭐</span>
                     <span>⭐</span>
                     <span>⭐</span>
-                    <span>50 Customer reviews</span>
+                    <span>{product.product.rating} Customer reviews</span>
                   </div>
                   {isMobile && (
                     <p className={styles.about_product}>
-                      {product.title} is {product.description}
+                      {product.product.productName} is {product.product.description}
                     </p>
                   )}
                   <h2 className={styles.productPrice}>
-                    Price - ₹ {product.price}
+                    Price - ₹ {product.product.price}
                   </h2>
                   <div>
-                    <span>{product?.color}</span>
+                    <span>{product.product?.color}</span>
                     <span> | </span>
-                    <span>{product?.type} </span>
+                    <span>{product.product?.category} </span>
                   </div>
                   <p className={styles.product_info}>About this Item</p>
                   <ul>
-                    {product?.details?.map((info, index) => (
-                      <li key={index} className={styles.product_info_list}>
-                        * {info}
-                      </li>
-                    ))}
+                    {product.product?.description}
+                     
+                    
                   </ul>
                   <div className={styles.product_available}>
                     <h3>Available - </h3> <span> In Stock</span>
                   </div>
                   <div className={styles.product_available}>
-                    <h3>Brand - </h3> <span> {product.brand}</span>
+                    <h3>Brand - </h3> <span> {product.product.brand}</span>
                   </div>
                 </div>
               </div>

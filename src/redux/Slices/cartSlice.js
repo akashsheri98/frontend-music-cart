@@ -15,14 +15,13 @@ const initialState = {
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async ({ userId, product ,quantity }, { rejectWithValue }) => {
-    
-    try {
+      try {
       const response = await axios.post(
-        
+       
         `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/cart/addtocart`,
         { userId, product ,quantity }
       );
-       
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -81,8 +80,8 @@ export const clearCart = createAsyncThunk(
   "cart/clear",
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_HOST}/cart/clear/${userId}`
+      const response = await axios.delete(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/cart/clear/${userId}`
       );
       return response.data;
     } catch (err) {

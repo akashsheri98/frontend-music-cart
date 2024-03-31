@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./checkout.module.css";
 import { loadStripe } from "@stripe/stripe-js";
-
+import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +11,7 @@ import { Header, Banner } from "../../Components/index";
 import MobileAuthHeader from "../../MobileComponents/MobileHeader/MobileAuthHeader";
 import MobileFooter from "../../MobileComponents/MobileFooter/MobileFooter";
 import backIcon from "/images/icons8-back-50.png";
+import { toast , ToastContainer} from "react-toastify";
 
 function Checkout() {
   const { cartItems, totalAmount, totalCount } = useSelector(
@@ -20,6 +21,7 @@ function Checkout() {
   const { user } = useSelector((state) => state.auth);
   
   const userId = user?.userid;
+  const userName = user?.name;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,42 +33,51 @@ function Checkout() {
   useEffect(() => {
     dispatch(fetchCartProducts(userId));
   }, [dispatch]);
-  console.log("cartItems",cartItems);
+  
   const makePayementHandler = async () => {
-    const stripe = await loadStripe(
-      `${import.meta.env.VITE_SERVER_STRIPE_PUBLICABLE_KEY}`
-    );
+    //send body 
     const body = {
       cartItems,
       totalAmount,
-      cartTotalAmount,
+      cartTotalAmount: cartTotalAmount,
+      userId,
+      userName,
+      paymentMethod,
+      additionalInfo
     };
-    const responce = await fetch(
-      `${import.meta.env.VITE_SERVER_HOST}/cart/create-checkout-sesion`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
-    const session = await responce.json();
+    try {
+      
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/order/checkout`,
+        body,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      
+      const data = await response.data;
+      if (data.message === "Order placed successfully") {
 
-    const result = await stripe.redirectToCheckout({ sessionId: session.id });
-    if (result.error) {
-      console.log(result.error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-      });
+        navigate("/order-success");
+       
+
+      } else if (data.status === 400) {
+        toast.success(data.message);
+    } else {
+        // Handle non-200 status codes
+        throw new Error(response.data.message || "Failed to place order");
     }
+    } catch (error) {
+     
+      console.error(error);
+    }
+    
   };
   const [paymentMethod, setPaymentMethod] = useState("COD");
   const [additionalInfo, setAdditionalInfo] = useState("110 main street \n Delhi India \n 110011");
-
-  
+ 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
     console.log("paymentMethod", paymentMethod);
@@ -84,6 +95,7 @@ function Checkout() {
 
   return (
     <>
+      <ToastContainer />
       <div>
         {isMobile ? <MobileAuthHeader /> : <Header />}
         {!isMobile && <Banner pageContent="Checkout" />}
@@ -178,7 +190,7 @@ function Checkout() {
               <div className={styles.order_confirmation}>
                 <button
                   onClick={() => {
-                    Swal.fire({
+                    {Swal.fire({
                       title: "Are you sure you want to Place Your Order?",
                       icon: "warning",
                       showCancelButton: true,
@@ -189,7 +201,7 @@ function Checkout() {
                       if (result.isConfirmed) {
                         makePayementHandler();
                       }
-                    });
+                    });}
                   }}
                   className={styles.place_order_btn}
                 >

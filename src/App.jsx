@@ -11,7 +11,7 @@ import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
 import Success from "./pages/OrderSucces/Success";
 import AddProduct from "./pages/AddProduct/AddProduct";
-
+import InvoiceCard from "../src/Components/InvoiceCard/InvoiceCard";
 import { Footer, ProductDetails } from "./Components/index";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -48,6 +48,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order-success" element={<Success />} />
+        <Route path="/invoice-card" element={<InvoiceCard/>} />
       </Routes>
       {!isMobile && <Footer />}
     </Router>

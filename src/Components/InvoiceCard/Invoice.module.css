@@ -1,0 +1,70 @@
+
+
+/* CSS for the card container */
+.card {
+  display: flex;
+  flex-direction: row;
+ 
+  width: 100%; /* Card width set to 100% of its container */
+  max-width: 600px; /* Maximum width of the card */
+  margin: 0 auto; /* Center the card horizontally */
+  border: 1px solid #ccc; /* Border for the card */
+  border-radius: 8px; /* Rounded corners for the card */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect for the card */
+}
+
+/* CSS for the card header */
+.card__header {
+  background-color: #f0f0f0; /* Background color for the header */
+  padding: 20px; /* Padding for the header */
+  border-bottom: 1px solid #ddd; /* Border bottom for the header */
+  border-top-left-radius: 8px; /* Rounded corners for the top-left of the header */
+  border-top-right-radius: 8px; /* Rounded corners for the top-right of the header */
+}
+
+/* CSS for the card title */
+.card__title {
+  margin: 0; /* Remove default margin */
+  font-size: 1.5rem; /* Font size for the title */
+  color: #333; /* Text color for the title */
+}
+
+/* CSS for the card subtitle */
+.card__subTitle {
+  margin: 0; /* Remove default margin */
+  font-size: 1.2rem; /* Font size for the subtitle */
+  color: #666; /* Text color for the subtitle */
+}
+
+/* CSS for the card body */
+.card__body {
+  padding: 20px; /* Padding for the body */
+}
+
+/* CSS for the card text */
+.card__text {
+  margin: 0; /* Remove default margin */
+  font-size: 1rem; /* Font size for the text */
+  color: #444; /* Text color for the text */
+}
+.flex_container {
+    display: flex;
+    justify-content: space-around;
+    
+    margin-top: 3rem;
+  }
+  
+
+.back_btn {
+  background-color: #007bff; /* Blue color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.back_btn:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}

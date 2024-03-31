@@ -22,6 +22,7 @@ const Success = () => {
       navigate("/");
     }, 5000);
   }, [dispatch]);
+  
   return (
     <div className={styles.main_container}>
       {isMobile ? (

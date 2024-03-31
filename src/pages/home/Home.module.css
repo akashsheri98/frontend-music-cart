@@ -4,3 +4,22 @@
   position: relative;
   background-color: #f1f1f1;
 }
+.feedback{
+  width:100%;
+  position:absolute;
+  /* margin-left:80rem; */
+  display:flex;
+  flex-direction:column-reverse;
+  align-items:flex-end;
+  bottom:20rem;
+
+}
+
+.feedbackImage{
+  width:122px;
+}
+
+.modalContent{
+  margin:2rem;
+  box-shadow: 0px 0px 20px 0px #0000005E;
+}
