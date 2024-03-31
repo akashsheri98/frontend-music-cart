@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./MobileHeader.module.css";
-import logo from "/images/musicartLogo.png";
+import logo from "/images/logo.png";
 import { useSelector } from "react-redux";
 import usersIcon from "/images/icons8-group-32.png";
 
