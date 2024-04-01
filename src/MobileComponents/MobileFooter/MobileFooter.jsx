@@ -57,7 +57,7 @@ const MobileFooter = () => {
         }`}
       >
         <img src={cartIcon} alt="cartIcon" />
-        <p>Cart</p>
+        <p>Cart </p>
       </div>
 
       <div

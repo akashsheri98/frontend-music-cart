@@ -110,14 +110,14 @@ function ProductDetails() {
                 )}
                 {isMobile && (
                   <Slider {...slideSettings}>
-                    {product.images.map((image, index) => (
+                    {/* {product.images.map((image, index) => (
                       <div className={styles.product_img} key={index}>
                         <img src={product.product.imageUrl} alt={product.product.productName} />
                       </div>
-                    ))}
+                    ))} */}
                   </Slider>
                 )}
-                {!isMobile && (
+                {isMobile || !isMobile && (
                   <div className={styles.product_img}>
                     <img
                       src={product.product.imageUrl}
@@ -133,7 +133,7 @@ function ProductDetails() {
                     <span>⭐</span>
                     <span>⭐</span>
                     <span>⭐</span>
-                    <span>{product.product.rating} Customer reviews</span>
+                    <span>{product.product.rating} Customer rating</span>
                   </div>
                   {isMobile && (
                     <p className={styles.about_product}>

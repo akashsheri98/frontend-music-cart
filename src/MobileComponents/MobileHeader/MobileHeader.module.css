@@ -14,7 +14,7 @@
   align-items: center;
 }
 .logo_img {
-  width: 10rem;
+  width: 2rem;
   margin-right: 0.2rem;
 }
 .logo_div {
@@ -31,4 +31,5 @@
 .user_info {
   display: flex;
   align-items: center;
+  font-size: small;
 }

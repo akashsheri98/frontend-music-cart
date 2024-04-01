@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, redirect, useNavigate  } from "react-router-dom";
 import styles from "./Cart.module.css";
 import Swal from "sweetalert2";
 
@@ -35,7 +35,7 @@ const Cart = () => {
     console.log("quantity", quantity);
      dispatch(getCartTotal());
     dispatch(updateCartQuantity({ quantity, productId, userId }));
-    window.location.reload();
+    navigate("/checkout");
   
   };
 
@@ -99,6 +99,7 @@ const Cart = () => {
               {cartItems?.map((item, i) => (
                 <div key={i} className={styles.cart_item_container}>
                   <div className={styles.image_container}>
+             
                     <img
                       src={item.product[0]?.imageUrl ? item.product[0]?.imageUrl : ""}
                       alt={item?.product[0]?.productName}

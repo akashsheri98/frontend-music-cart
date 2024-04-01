@@ -31,7 +31,7 @@ function FeedbackForm() {
         <div className={styles.container}>
             <h2>Feedback Form</h2>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="feedbackType">Feedback Type:</label>
+                <label htmlFor="feedbackType">Feedback Type:</label><br></br>
                 <select id="feedbackType" name="feedbackType" value={feedbackType} onChange={handleFeedbackTypeChange} required>
                     <option value="" disabled hidden>Choose the type</option>
                     <option value="Bug">Bug</option>
@@ -42,7 +42,7 @@ function FeedbackForm() {
                 <label htmlFor="feedbackText">Feedback:</label><br/>
                 <textarea id="feedbackText" name="feedbackText" rows="4" cols="50" value={feedbackText} onChange={handleFeedbackTextChange} required></textarea>
                 <br/><br/>
-                <input type="submit" value="Submit Feedback" className={styles.submitButton} />
+                <input type="submit" value="Submit" className={styles.submitButton} />
             </form>
         </div>
     );

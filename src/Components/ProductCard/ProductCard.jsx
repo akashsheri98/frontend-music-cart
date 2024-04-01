@@ -36,6 +36,7 @@ const ProductCard = ({ product }) => {
           loading="lazy"
          
           src={product.imageUrl}
+          
           alt={product?.productName}
           className={styles.productImage}
         />

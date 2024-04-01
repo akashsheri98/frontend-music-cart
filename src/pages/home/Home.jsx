@@ -40,7 +40,7 @@ const Home = () => {
       {isMobile && <MobileFooter />}
       
         <div className={styles.feedback}>
-            <img  src="src/pages/home/feedback.jpg" alt="Feedback" className={styles.feedbackImage} onClick={handleImageClick} />
+            <img  src="public/images/feedback.jpg" alt="Feedback" className={styles.feedbackImage} onClick={handleImageClick} />
             {showModal && <div className={styles.modal}>
                 <div className={styles.modalContent}>
                     {/* <span className={styles.close} onClick={closeModal}>&times;</span> */}
