@@ -109,13 +109,19 @@ function ProductDetails() {
                   </button>
                 )}
                 {isMobile && (
-                  <Slider {...slideSettings}>
-                    {/* {product.images.map((image, index) => (
-                      <div className={styles.product_img} key={index}>
-                        <img src={product.product.imageUrl} alt={product.product.productName} />
-                      </div>
-                    ))} */}
-                  </Slider>
+                  // <Slider {...slideSettings}>
+                  //   {/* {product.images.map((image, index) => (
+                  //     <div className={styles.product_img} key={index}>
+                  //       <img src={product.product.imageUrl} alt={product.product.productName} />
+                  //     </div>
+                  //   ))} */}
+                  // </Slider>
+                  <div className={styles.product_img}>
+                  <img
+                    src={product.product.imageUrl}
+                    alt={product.product.productName}
+                  />
+                </div>
                 )}
                 {isMobile || !isMobile && (
                   <div className={styles.product_img}>
